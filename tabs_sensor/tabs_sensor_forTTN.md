@@ -24,7 +24,7 @@
 
 ## SensorType
 
-### <font color=#FF0000>Door Window</font>
+### <span style="color: blue">Door Window</span>
 #### 1. Device Messages (Fport:100)
 | 名稱            | 說明                                             |
 |----------------|--------------------------------------------------|
