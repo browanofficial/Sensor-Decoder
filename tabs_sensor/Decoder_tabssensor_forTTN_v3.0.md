@@ -4,12 +4,8 @@
 This is the documentation for "tabs_sensor_forTTN" file, which is the decoder file for tabs_sensor in The Things Stack for LoRaWAN. 
 Below you'll find explanations of various SensorTypes and the Release history contained within the document.
 
-| Author             | Contact Information                                              |
+|Problem report|https://www.browan.com/contact|
 |----------------|--------------------------------------------------|
-|BROWAN COMMUNICATIONS INC|https://www.browan.com/contact|
-|Brian.jiang|brian.jiang@browan.com|
-|Stanley.wang|stanley.wang@browan.com|
-
 
 ## Index
 
