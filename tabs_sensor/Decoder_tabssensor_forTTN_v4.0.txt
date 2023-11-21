@@ -6,9 +6,9 @@
 // 【Door & Window Sensor】,【Motion Sensor】 ,【 Temperature & Humidity Sensor】
 // 【Healthy Home Sensor(IAQ) 】,【Ambient Light Sensor 】,【Sound Level Sensor】
 // 【Water Leak Sensor 】,【Object Locator Sensor 】,【Industrial Tracker Sensor】
+// 【Temperature Probe Sensor】
 //
-// Author: Brian.Jiang
-// Version v3.0.0
+// Version v4.0
 //
 
 //#################### * Door & Window  *#################### //
@@ -52,7 +52,7 @@ function littleendianhex(inputpayload) {
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -187,7 +187,7 @@ function littleendianhex(inputpayload) {
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -336,7 +336,7 @@ function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
   
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -488,7 +488,7 @@ function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
 
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -660,7 +660,7 @@ function littleendianhex(inputpayload) {
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -806,7 +806,7 @@ function littleendianhex(inputpayload) {
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -943,7 +943,7 @@ function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
   
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -965,7 +965,7 @@ function decodeUplink(input) {
       },
     };
   }
-  else if(fPort==204 && payloadlens==10){//Frame Count 0 Content
+  else if(fPort==204 && payloadlens==10){ //Response Content (Only for unconfirmed downlink)
     var intput_list = input.bytes;
     var payloadlens = input.bytes.length;
     var intput_liststr='';
@@ -1141,7 +1141,7 @@ function gnss_PositCal(intput_posit){
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){//Frame Count 0 Content
+  if(fPort==222 && payloadlens==17){//Frame Count 0 Content
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -1347,7 +1347,7 @@ function gnss_PositCal(intput_posit){
 function decodeUplink(input) {
   var fPort = input.fPort;
   var payloadlens = input.bytes.length;
-  if(fPort==204 && payloadlens==17){
+  if(fPort==222 && payloadlens==17){
     var intput_list = input.bytes;
     var intput_liststr='';
     for(let i=0;i<17;i++){
@@ -1466,3 +1466,161 @@ function decodeUplink(input) {
 }
 
 //#################### * Industrial Tracker Sensor End !! *#################### //
+
+//#################### * Temperature Probe Sensor  *#################### //
+//hex to binary function
+function hex2bin(hex) {
+    return (parseInt(hex, 16).toString(2)).padStart(8, '0');
+}
+// hex covert
+function paddingLeft(str, lenght) {
+    if (str.length >= lenght)
+        return str;
+    else
+        return paddingLeft("0" + str, lenght);
+}
+// little-endian format
+function littleendian(inputpayload) {
+    var data = inputpayload.match(/../g);
+    var buf = new ArrayBuffer(4);
+    // Create a data view of it
+    var view = new DataView(buf);
+    // set bytes
+    data.forEach(function (b, i) {
+        view.setUint8(i, parseInt(b, 16));
+    });
+    // get an int32 with little endian
+    var num = view.getInt32(0, 1);
+
+    return num;
+}
+// little-endian format(hex to string)
+function littleendianhex(inputpayload) {
+    var inputlengh = inputpayload.length;
+    var outputstr = '';
+    for (let y = inputlengh; y >= 1; y -= 2) {
+        outputstr = outputstr + inputpayload[y - 2] + inputpayload[y - 1];
+    }
+    return outputstr;
+}
+// debug console log
+function debug_console_log(log) {
+    // console.log(log);
+    return;
+}
+// Temperature Probe Sensor
+function decodeUplink(input) {
+    var fPort = input.fPort;
+    var payloadlens = input.bytes.length;
+
+    debug_console_log('fPort: ' + fPort);
+    debug_console_log('payloadlens: ' + payloadlens);
+
+    if (fPort == 222 && payloadlens == 17) {
+        // Frame Count 0 Content
+        var intput_list = input.bytes;
+        var intput_liststr = '';
+        for (let i = 0; i < 17; i++) {
+            intput_liststr = intput_liststr + paddingLeft(intput_list[i].toString(16), 2);
+        }
+        var bootloader_hex = intput_liststr.toString("hex").substring(2, 10);
+        var hwid_hex = intput_liststr.toString("hex").substring(10, 18);
+        var fwcrc_hex = intput_liststr.toString("hex").substring(18, 26);
+
+        var bootloader = littleendianhex(bootloader_hex);
+        var HW_ID = littleendianhex(hwid_hex);
+        var FW_CRC = littleendianhex(fwcrc_hex);
+
+        var ret_data = {
+            data: {
+                fPort,
+                bootloader,
+                HW_ID,
+                FW_CRC,
+            },
+        };
+        debug_console_log('ret_data: ' + JSON.stringify(ret_data));
+
+        return ret_data;
+    }
+    else if (fPort == 204 && payloadlens == 12) {
+        // Response Content (Only for unconfirmed downlink)
+        var intput_list = input.bytes;
+        var intput_liststr = '';
+        for (let i = 0; i < payloadlens; i++) {
+            intput_liststr = intput_liststr + paddingLeft(intput_list[i].toString(16), 2);
+        }
+
+        var temp_probe_keepalive_hex = intput_liststr.toString("hex").substring(2, 6);
+        var temp_probe_detect_time_int_hex = intput_liststr.toString("hex").substring(8, 12);
+        var temp_probe_temp_delta_hex = intput_list[7].toString(16);
+        var temp_probe_max_temp_hex = intput_list[9].toString(16);
+        var temp_probe_min_temp_hex = intput_list[11].toString(16);
+
+        var temp_probe_keepalive = littleendian(temp_probe_keepalive_hex); // (sec), Keep alive interval
+        var temp_probe_detect_time_int = littleendian(temp_probe_detect_time_int_hex); // (sec) , Detection time interval
+        var temp_probe_temp_delta = parseInt(temp_probe_temp_delta_hex, 16); // (oC) , Temperature delta
+        var temp_probe_max_temp = parseInt(temp_probe_max_temp_hex, 16); // (oC) , Maximum temperature limit
+        temp_probe_max_temp = temp_probe_max_temp - 55;
+        var temp_probe_min_temp = parseInt(temp_probe_min_temp_hex, 16); // (oC) , Minimum temperature limit
+        temp_probe_min_temp = temp_probe_min_temp - 55;
+
+        var ret_data = {
+            data: {
+                fPort,
+                payloadlens,
+                temp_probe_keepalive,
+                temp_probe_detect_time_int,
+                temp_probe_temp_delta,
+                temp_probe_max_temp,
+                temp_probe_min_temp,
+            },
+        };
+        debug_console_log('ret_data: ' + JSON.stringify(ret_data));
+
+        return ret_data;
+    }
+    else if (fPort == 112 && payloadlens == 5) {
+        var intput_list = input.bytes;
+
+        var battery_v = intput_list[1];
+        battery_v = battery_v & 0x0f;
+        var battery_volt = (25 + battery_v) / 10; // battery voltage
+
+        var temp_pcb_t = intput_list[2];
+        temp_pcb_t = temp_pcb_t & 0x7f;
+        var temp_pcb = temp_pcb_t - 32; // board temperature
+
+        var temp_probe_t = (intput_list[4] << 8) | intput_list[3];
+        var temp_probe = (2000 - temp_probe_t) * 0.0625; // temp-probe temperature
+
+        var ret_data = {
+            data: {
+                fPort,
+                battery_volt,
+                temp_pcb,
+                temp_probe,
+            },
+        };
+        debug_console_log('ret_data: ' + JSON.stringify(ret_data));
+
+        return ret_data;
+    }
+    else {
+        var fPort = input.fPort;
+        var payloadlength = input.bytes.length;
+        var message = 'Invalid fPort or payload length';
+
+        var ret_data = {
+            data: {
+                fPort,
+                payloadlength,
+                message,
+            },
+        };
+        debug_console_log('ret_data: ' + JSON.stringify(ret_data));
+
+        return ret_data;
+    }
+}
+//#################### * Temperature Probe Sensor End !! *#################### //
