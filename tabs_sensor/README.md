@@ -20,6 +20,9 @@ Problem report: <https://www.browan.com/contact>
   - [Industrial Tracker Sensor](#industrial-tracker-sensor)
   - [Temperature Probe Sensor](#temperature-probe-sensor)
 - [Release History](#release-history)
+- [Installation and Usage](#installation-and-usage)
+- [Contribution](#contribution)
+- [License](#license)
 
 ## SensorType
 
@@ -460,5 +463,5 @@ If you discover issues or have suggestions for improvement, feel free to submit 
 
 ## License
 
-The project adheres to the [MIT License](LICENSE).
+The project adheres to the [MIT License](../LICENSE).
 By [Browan Communications Inc.](https://www.browan.com/)
