@@ -439,6 +439,10 @@ Problem report: <https://www.browan.com/contact>
 
 ## Release History
 
+### Decoder_tabssensor_forTTN_v4.1.txt
+
+- Bugfix: Humidity is incorrect if raw data is over 64.
+
 ### Decoder_tabssensor_forTTN_v4.0.txt
 
 - Support temperature probe sensor.
