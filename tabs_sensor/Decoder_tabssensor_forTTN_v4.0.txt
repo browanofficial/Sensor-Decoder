@@ -402,7 +402,7 @@ function decodeUplink(input) {
     
     var humi_hex=intput_list[3].toString(16);
     var humi_binary = hex2bin(humi_hex); 
-    var humi_binary2 = humi_binary.substring(2, 8);
+    var humi_binary2 = humi_binary.substring(1, 8);
     var humi_int = parseInt(humi_binary2,2)
     humidity = humi_int; // humidity on environment
     
@@ -554,7 +554,7 @@ function decodeUplink(input) {
     
     var humi_hex=intput_list[3].toString(16);
     var humi_binary = hex2bin(humi_hex); 
-    var humi_binary2 = humi_binary.substring(2, 8);
+    var humi_binary2 = humi_binary.substring(1, 8);
     var humi_int = parseInt(humi_binary2,2)
     humidity = humi_int; // humidity on environment
     
@@ -1021,7 +1021,7 @@ function decodeUplink(input) {
 
     var humi_hex=intput_list[3].toString(16);
     var humi_binary = hex2bin(humi_hex); 
-    var humi_binary2 = humi_binary.substring(2, 8);
+    var humi_binary2 = humi_binary.substring(1, 8);
     var humi_int = parseInt(humi_binary2,2);
     humidity = humi_int; // humidity on environment
 
